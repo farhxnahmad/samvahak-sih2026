@@ -1,0 +1,138 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body {
+    height: 100%;
+  }
+  body {
+    @apply bg-sand-200 text-forest-900 antialiased;
+    font-family: var(--font-body), system-ui, sans-serif;
+  }
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display), system-ui, sans-serif;
+    letter-spacing: -0.01em;
+  }
+  :focus-visible {
+    outline: 2px solid #2b7fa8;
+    outline-offset: 2px;
+  }
+}
+
+/* Subtle glass surface, used for every floating panel */
+.glass {
+  background: rgba(248, 244, 234, 0.74);
+  -webkit-backdrop-filter: blur(18px) saturate(1.15);
+  backdrop-filter: blur(18px) saturate(1.15);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.6) inset,
+    0 14px 34px -14px rgba(16, 40, 29, 0.32);
+}
+
+/* Map styling: warm the grey base tiles toward the earthy palette */
+.leaflet-container {
+  background: #e8e1d0;
+  font-family: inherit;
+}
+.leaflet-tile-pane {
+  filter: sepia(0.5) saturate(0.85) hue-rotate(-6deg) contrast(0.96);
+}
+.leaflet-control-attribution {
+  background: rgba(248, 244, 234, 0.8) !important;
+  color: #1f4d39;
+  font-size: 10px;
+}
+.leaflet-control-attribution a {
+  color: #1c5673;
+}
+.leaflet-bar {
+  border: 1px solid rgba(255, 255, 255, 0.55) !important;
+  border-radius: 10px !important;
+  overflow: hidden;
+  box-shadow: 0 10px 24px -12px rgba(16, 40, 29, 0.4) !important;
+}
+.leaflet-bar a {
+  background: rgba(248, 244, 234, 0.85);
+  color: #17392a;
+  border-bottom-color: rgba(23, 57, 42, 0.12);
+}
+.leaflet-bar a:hover {
+  background: #f8f4ea;
+  color: #10281d;
+}
+.leaflet-tooltip {
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  background: rgba(248, 244, 234, 0.95);
+  color: #10281d;
+  box-shadow: 0 8px 20px -10px rgba(16, 40, 29, 0.4);
+  font-size: 12px;
+}
+.leaflet-tooltip::before {
+  display: none;
+}
+.hub-label {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  padding: 0;
+  font-weight: 600;
+  font-size: 12px;
+  color: #10281d;
+  text-shadow: 0 0 3px #f8f4ea, 0 0 3px #f8f4ea, 0 0 6px #f8f4ea;
+}
+
+@media (max-width: 1023px) {
+  .leaflet-control-zoom {
+    display: none;
+  }
+}
+
+/* Risk heatmap: soft blended blobs, one per district */
+.risk-heat-pane {
+  filter: blur(14px);
+  opacity: 0.9;
+}
+
+/* Emergency operations panels: dark forest surface */
+.glass-dark {
+  background: rgba(16, 40, 29, 0.88);
+  -webkit-backdrop-filter: blur(16px) saturate(1.1);
+  backdrop-filter: blur(16px) saturate(1.1);
+  border: 1px solid rgba(248, 244, 234, 0.12);
+  box-shadow: 0 16px 36px -14px rgba(0, 0, 0, 0.5);
+  color: #f8f4ea;
+}
+.glass-dark select,
+.glass-dark input {
+  color-scheme: dark;
+}
+
+/* Epicentre marker with a single slow ping */
+.eoc-pulse span {
+  display: block;
+  width: 14px;
+  height: 14px;
+  border-radius: 9999px;
+  background: #b0432f;
+  border: 2px solid #f8f4ea;
+  box-shadow: 0 0 0 0 rgba(176, 67, 47, 0.55);
+  animation: eoc-ping 2s ease-out infinite;
+}
+@keyframes eoc-ping {
+  70% {
+    box-shadow: 0 0 0 18px rgba(176, 67, 47, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(176, 67, 47, 0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .eoc-pulse span {
+    animation: none;
+  }
+}
