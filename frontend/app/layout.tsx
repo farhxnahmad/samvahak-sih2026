@@ -18,7 +18,7 @@ const body = Instrument_Sans({
 export const metadata: Metadata = {
   title: "Samvahak",
   description: "Logistics and accessibility intelligence for North East India",
-  icons: { icon: "/favicon.svg" },
+  icons: { icon: `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/favicon.svg` },
 };
 
 export const viewport: Viewport = {
